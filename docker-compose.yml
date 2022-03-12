@@ -1,13 +1,13 @@
 version: '3.0'
 services:
-  nginx:
-    restart: always
-    image: nginx:1.15.6
+  webserver:
+    image: nginx:latest
     ports:
-     - 80:80
-     - 443:443
+      - 80:80
+      - 443:443
+    restart: always
     volumes:
-     - ./nginx/conf:/etc/nginx/conf.d
-     - ./log:/var/log/nginx
-     - ./wwwroot:/var/www
-     - /etc/letsencrypt:/etc/letsencrypt
+      - ./wwwroot:/var/www
+      - ./nginx/conf/:/etc/nginx/conf.d/:ro
+      - ./certbot/www:/var/www/certbot/:ro
+      - ./certbot/conf/:/etc/nginx/ssl/:ro
